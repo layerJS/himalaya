@@ -2,13 +2,13 @@
   Tags which contain arbitary non-parsed content
   For example: <script> JavaScript should not be parsed
 */
-export const childlessTags = ['style', 'script', 'template']
+const childlessTags = ['style', 'script', 'template']
 
 /*
   Tags which auto-close because they cannot be nested
   For example: <p>Outer<p>Inner is <p>Outer</p><p>Inner</p>
 */
-export const closingTags = [
+const closingTags = [
   'html', 'head', 'body', 'p', 'dt', 'dd', 'li', 'option',
   'thead', 'th', 'tbody', 'tr', 'td', 'tfoot', 'colgroup'
 ]
@@ -20,7 +20,7 @@ export const closingTags = [
   For example: in <li><ul><li></ul></li>,
   the top-level <li> should not auto-close.
 */
-export const closingTagAncestorBreakers = {
+const closingTagAncestorBreakers = {
   li: ['ul', 'ol', 'menu'],
   dt: ['dl'],
   dd: ['dl'],
@@ -35,8 +35,12 @@ export const closingTagAncestorBreakers = {
   Tags which do not need the closing tag
   For example: <img> does not need </img>
 */
-export const voidTags = [
+const voidTags = [
   '!doctype', 'area', 'base', 'br', 'col', 'command',
   'embed', 'hr', 'img', 'input', 'keygen', 'link',
   'meta', 'param', 'source', 'track', 'wbr'
 ]
+
+module.exports = {
+  childlessTags, closingTags, closingTagAncestorBreakers, voidTags
+};

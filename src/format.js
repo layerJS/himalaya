@@ -1,10 +1,10 @@
-export function splitHead (str, sep) {
+function splitHead(str, sep) {
   const idx = str.indexOf(sep)
   if (idx === -1) return [str]
   return [str.slice(0, idx), str.slice(idx + sep.length)]
 }
 
-export function unquote (str) {
+function unquote (str) {
   const car = str.charAt(0)
   const end = str.length - 1
   const isQuoteStart = car === '"' || car === "'"
@@ -14,12 +14,13 @@ export function unquote (str) {
   return str
 }
 
-export function format (nodes, options) {
+function format (nodes, options) {
   return nodes.map(node => {
     const type = node.type
     const outputNode = type === 'element'
       ? {
         type,
+        //FIXME: maybe here?
         tagName: node.tagName.toLowerCase(),
         attributes: formatAttributes(node.attributes),
         children: format(node.children, options)
@@ -32,7 +33,7 @@ export function format (nodes, options) {
   })
 }
 
-export function formatAttributes (attributes) {
+function formatAttributes (attributes) {
   return attributes.map(attribute => {
     const parts = splitHead(attribute.trim(), '=')
     const key = parts[0]
@@ -42,3 +43,7 @@ export function formatAttributes (attributes) {
     return {key, value}
   })
 }
+
+module.exports = {
+  splitHead, formatAttributes, unquote, format
+};

@@ -1,6 +1,6 @@
-import {arrayIncludes} from './compat'
+let { arrayIncludes } = require('./compat');
 
-export function formatAttributes (attributes) {
+function formatAttributes (attributes) {
   return attributes.reduce((attrs, attribute) => {
     const {key, value} = attribute
     if (value === null) {
@@ -12,7 +12,7 @@ export function formatAttributes (attributes) {
   }, '')
 }
 
-export function toHTML (tree, options) {
+function toHTML (tree, options) {
   return tree.map(node => {
     if (node.type === 'text') {
       return node.content
@@ -28,4 +28,6 @@ export function toHTML (tree, options) {
   }).join('')
 }
 
-export default {toHTML}
+module.exports = {
+  formatAttributes, toHTML
+};

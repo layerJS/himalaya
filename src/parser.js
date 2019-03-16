@@ -1,13 +1,14 @@
-import {arrayIncludes} from './compat'
+let { arrayIncludes } = require('./compat');
 
-export default function parser (tokens, options) {
+//FIXME: export default
+function parser (tokens, options) {
   const root = {tagName: null, children: []}
   const state = {tokens, options, cursor: 0, stack: [root]}
   parse(state)
   return root.children
 }
 
-export function hasTerminalParent (tagName, stack, terminals) {
+function hasTerminalParent (tagName, stack, terminals) {
   const tagParents = terminals[tagName]
   if (tagParents) {
     let currentIndex = stack.length - 1
@@ -25,7 +26,7 @@ export function hasTerminalParent (tagName, stack, terminals) {
   return false
 }
 
-export function rewindStack (stack, newLength, childrenEndPosition, endPosition) {
+function rewindStack (stack, newLength, childrenEndPosition, endPosition) {
   stack[newLength].position.end = endPosition
   for (let i = newLength + 1, len = stack.length; i < len; i++) {
     stack[i].position.end = childrenEndPosition
@@ -33,7 +34,7 @@ export function rewindStack (stack, newLength, childrenEndPosition, endPosition)
   stack.splice(newLength)
 }
 
-export function parse (state) {
+function parse (state) {
   const {tokens, options} = state
   let {stack} = state
   let nodes = stack[stack.length - 1].children
@@ -132,3 +133,7 @@ export function parse (state) {
   }
   state.cursor = cursor
 }
+
+module.exports = {
+  parser, hasTerminalParent, rewindStack, parse
+};
