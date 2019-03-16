@@ -20,8 +20,7 @@ function format (nodes, options) {
     const outputNode = type === 'element'
       ? {
         type,
-        //FIXME: maybe here?
-        tagName: node.tagName.toLowerCase(),
+        tagName: node.tagName,
         attributes: formatAttributes(node.attributes),
         children: format(node.children, options)
       }

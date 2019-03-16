@@ -9,7 +9,8 @@ const parseDefaults = {
   closingTags,
   childlessTags,
   closingTagAncestorBreakers,
-  includePositions: false
+  includePositions: false,
+  isSelfClosing: (tag) => false
 };
 
 function parse(str, options = parseDefaults) {
@@ -23,5 +24,5 @@ function stringify(ast, options = parseDefaults) {
 }
 
 module.exports = {
-  parse, stringify
+  parse, stringify, parseDefaults
 };

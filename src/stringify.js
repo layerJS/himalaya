@@ -20,8 +20,9 @@ function toHTML (tree, options) {
     if (node.type === 'comment') {
       return `<!--${node.content}-->`
     }
-    const {tagName, attributes, children} = node
-    const isSelfClosing = arrayIncludes(options.voidTags, tagName.toLowerCase())
+    const { tagName, attributes, children } = node
+    const safeTag = tagName.toLowerCase();
+    const isSelfClosing = arrayIncludes(options.voidTags, safeTag) || options.isSelfClosing(safeTag)
     return isSelfClosing
       ? `<${tagName}${formatAttributes(attributes)}>`
       : `<${tagName}${formatAttributes(attributes)}>${toHTML(children, options)}</${tagName}>`
