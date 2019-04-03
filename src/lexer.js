@@ -183,18 +183,21 @@ function lexTagAttributes (state) {
   let wordBegin = cursor // index of word start
   const words = [] // "key", "key=value", "key='value'", etc
   const len = str.length
+  let quoteNest = 0;
   while (cursor < len) {
+    debugger
     const char = str.charAt(cursor)
     if (quote) {
       const isQuoteEnd = char === quote
       if (isQuoteEnd) {
         quote = null
+        quoteNest--;
       }
       cursor++
       continue
     }
 
-    const isTagEnd = char === '/' || char === '>'
+    const isTagEnd = quoteNest === 0 && (char === '/' || char === '>')
     if (isTagEnd) {
       if (cursor !== wordBegin) {
         words.push(str.slice(wordBegin, cursor))
@@ -216,6 +219,7 @@ function lexTagAttributes (state) {
     if (isQuoteStart) {
       quote = char
       cursor++
+      quoteNest++;
       continue
     }
 
