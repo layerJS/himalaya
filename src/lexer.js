@@ -185,7 +185,6 @@ function lexTagAttributes (state) {
   const len = str.length
   let quoteNest = 0;
   while (cursor < len) {
-    debugger
     const char = str.charAt(cursor)
     if (quote) {
       const isQuoteEnd = char === quote
