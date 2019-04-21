@@ -13,7 +13,8 @@ const parseDefaults = {
   isSelfClosing: (tag) => false
 };
 
-function parse(str, options = parseDefaults) {
+function parse(str, options) {
+  options = Object.assign(parseDefaults, options || {})
   const tokens = lexer(str, options)
   const nodes = parser(tokens, options)
   return format(nodes, options)
